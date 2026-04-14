@@ -75,7 +75,7 @@ namespace EastencherAPI.Services
         {
             try
             {
-                string EncryptionKey = "Iteos";
+                string EncryptionKey = "Eastencher";
                 byte[] KeyArray;
                 byte[] ToEncryptArray = Convert.FromBase64String(Password);
                 if (UseHashing)
@@ -112,7 +112,7 @@ namespace EastencherAPI.Services
         {
             try
             {
-                string EncryptionKey = "Iteos";
+                string EncryptionKey = "Eastencher";
                 byte[] KeyArray;
                 byte[] ToEncryptArray = Encoding.UTF8.GetBytes(Password);
                 if (useHashing)

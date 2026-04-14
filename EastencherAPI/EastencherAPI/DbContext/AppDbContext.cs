@@ -1,4 +1,5 @@
 ﻿using AuthApplication.Models;
+using EastencherAPI.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EastencherAPI.DBContext
@@ -21,6 +22,7 @@ namespace EastencherAPI.DBContext
         public DbSet<MailBodyConfiguration> MailBodyConfigurations { get; set; }
         public DbSet<NewsAndNotification> NewsAndNotifications { get; set; }
         public DbSet<DocumentMaster> DocumentMaster { get; set; }
+        public DbSet<Product> Products { get; set; }
         //public DbSet<DocumentExtensions> DocumentExtensions { get; set; }
         //// Masters
         //public DbSet<Institution> Institution { get; set; }

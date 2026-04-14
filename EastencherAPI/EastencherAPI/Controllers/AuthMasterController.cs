@@ -477,7 +477,7 @@ namespace AuthApplication.Controllers
         {
             try
             {
-                string EncryptionKey = "Iteos";
+                string EncryptionKey = "Eastencher";
                 byte[] KeyArray;
                 byte[] ToEncryptArray = Convert.FromBase64String(Password);
                 if (UseHashing)
@@ -616,6 +616,179 @@ namespace AuthApplication.Controllers
         }
 
         #endregion
+
+        //#region Institution Master Related API's
+
+        //[HttpPost("CreateOrUpdateInstitution")]
+        //public async Task<IActionResult> CreateOrUpdateInstitution(InstitutionDto data)
+        //{
+        //    try
+        //    {
+        //        // Validation: If InstitutionName is provided, check for duplicates (case-insensitive) for active Institution
+        //        var existingInstitution = await _dbContext.Institution
+        //            .FirstOrDefaultAsync(x => x.InstitutionName != null && x.InstitutionName.ToLower().Trim() == data.InstitutionName.ToLower().Trim() && x.InstitutionCode.ToLower().Trim() == data.InstitutionCode.ToLower().Trim() && x.IsActive == true);
+
+        //        if (existingInstitution != null && existingInstitution.InstitutionId != data.InstitutionId)
+        //        {
+        //            return Ok(new { success = false, message = $"Institution with name '{data.InstitutionName}' already exists." });
+        //        }
+
+        //        // If the Institution exists → Update
+        //        if (data.InstitutionId > 0)
+        //        {
+        //            var institutionToUpdate = await _dbContext.Institution
+        //                .FirstOrDefaultAsync(x => x.InstitutionId == data.InstitutionId);
+
+        //            if (institutionToUpdate == null)
+        //            {
+        //                return Ok(new { success = false, message = $"Institution with Id {data.InstitutionId} not found." });
+        //            }
+
+        //            // Update fields if necessary
+        //            List<string> updatedFields = new List<string>();
+
+        //            void UpdateField<T>(string fieldName, T existingValue, T newValue, Action<T> applyChange)
+        //            {
+        //                if (!EqualityComparer<T>.Default.Equals(existingValue, newValue))
+        //                {
+        //                    applyChange(newValue);
+        //                    updatedFields.Add($"{fieldName}: Existing Data : \"{existingValue}\" Updated to \"{newValue}\"");
+        //                }
+        //            }
+
+        //            UpdateField("InstitutionName", institutionToUpdate.InstitutionName, data.InstitutionName, val => institutionToUpdate.InstitutionName = val);
+        //            UpdateField("InstitutionCode", institutionToUpdate.InstitutionCode, data.InstitutionCode, val => institutionToUpdate.InstitutionCode = val);
+        //            UpdateField("IsActive", institutionToUpdate.IsActive, data.IsActive, val => institutionToUpdate.IsActive = val);
+
+        //            institutionToUpdate.ModifiedOn = DateTime.Now;
+        //            institutionToUpdate.ModifiedBy = data.UserId;
+
+        //            _dbContext.Institution.Update(institutionToUpdate);
+
+        //            if (updatedFields.Any())
+        //            {
+        //                Log.DataLog($"{data.UserId}",
+        //                    $"Institution Id {data.InstitutionId} updated fields: {string.Join(", ", updatedFields)}",
+        //                    "Institution");
+        //            }
+
+        //            await _dbContext.SaveChangesAsync();
+
+        //            return Ok(new { success = true, message = "Institution updated successfully.", data = data });
+        //        }
+        //        else
+        //        {
+        //            // If Institution does not exist → Create new
+        //            var newInstitution = new Institution
+        //            {
+        //                InstitutionName = data.InstitutionName,
+        //                InstitutionCode = data.InstitutionCode,
+        //                IsActive = true,
+        //                CreatedBy = data.UserId,
+        //                CreatedOn = DateTime.Now,
+        //            };
+
+        //            await _dbContext.Institution.AddAsync(newInstitution);
+        //            await _dbContext.SaveChangesAsync();
+
+        //            Log.DataLog($"{data.UserId}",
+        //                $"Institution created with Name {data.InstitutionName} and Code {data.InstitutionCode}",
+        //                "Institution");
+
+        //            return Ok(new { success = true, message = "Institution created successfully.", data = data });
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new { success = false, message = ex.Message });
+        //    }
+        //}
+
+        //[HttpGet("GetAllInstitutions")]
+        //public async Task<IActionResult> GetAllInstitutions()
+        //{
+        //    try
+        //    {
+        //        var institutions = await _dbContext.Institution
+        //            .Where(x => x.IsActive == true)
+        //            .OrderByDescending(x => x.CreatedOn)
+        //            .ToListAsync();
+
+        //        return Ok(new { success = true, message = "Institutions data fetched successfully", data = institutions });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new { success = false, message = ex.Message });
+        //    }
+        //}
+
+        //[HttpGet("GetInstitutionById")]
+        //public async Task<IActionResult> GetInstitutionById(int id)
+        //{
+        //    try
+        //    {
+        //        if (id <= 0)
+        //        {
+        //            return Ok(new { success = false, message = "Invalid Institution Id." });
+        //        }
+
+        //        var institution = await _dbContext.Institution
+        //            .FirstOrDefaultAsync(x => x.InstitutionId == id && x.IsActive == true);
+
+        //        if (institution == null)
+        //        {
+        //            return Ok(new { success = false, message = $"Institution with Id {id} not found." });
+        //        }
+
+        //        return Ok(new { success = true, message = "Institution data fetched successfully", data = institution });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new { success = false, message = ex.Message });
+        //    }
+        //}
+
+        //[HttpPost("DeleteInstitutionById")]
+        //public async Task<IActionResult> DeleteInstitutionById(int id, string? UserId)
+        //{
+        //    try
+        //    {
+        //        if (id <= 0)
+        //        {
+        //            return Ok(new { success = false, message = "Valid Institution Id is required" });
+        //        }
+        //        if (string.IsNullOrWhiteSpace(UserId))
+        //        {
+        //            return Ok(new { success = false, message = "UserId is required" });
+        //        }
+
+        //        var userExists = await _dbContext.Users.AnyAsync(x => x.UserID.ToString().ToLower() == UserId.ToString() && x.IsActive == true);
+        //        if (!userExists)
+        //        {
+        //            return Ok(new { success = false, message = "UserId Not Found" });
+        //        }
+
+        //        var institution = await _dbContext.Institution.FirstOrDefaultAsync(x => x.InstitutionId == id);
+        //        if (institution == null)
+        //        {
+        //            return Ok(new { success = false, message = "Institution not found" });
+        //        }
+
+        //        _dbContext.Institution.Remove(institution);
+        //        await _dbContext.SaveChangesAsync();
+
+        //        Log.DataLog(UserId, $"Institution with Id {id} deleted. Name: '{institution.InstitutionName}', Code: '{institution.InstitutionCode}'", "Institution");
+
+        //        return Ok(new { success = true, message = "Institution deleted successfully" });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return Ok(new { success = false, message = ex.Message });
+        //    }
+        //}
+
+
+        //#endregion
     }
 
 }

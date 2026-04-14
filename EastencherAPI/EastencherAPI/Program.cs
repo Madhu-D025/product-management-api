@@ -25,6 +25,7 @@ builder.Services.AddScoped<AuthMasterServices>();
 builder.Services.AddScoped<SMSService>();
 builder.Services.AddScoped<AuthController>();
 builder.Services.AddScoped<DocumentService>();
+builder.Services.AddScoped<ProductServices>();
 builder.Services.AddHttpClient();
 builder.Services.AddControllers();
 
@@ -100,10 +101,6 @@ foreach (var path in staticFilePaths)
     });
 }
 
-//Timer vendortimer = new Timer(backupdata, app, TimeSpan.Zero, TimeSpan.FromHours(4));
-
-//Timer employeeattendancesumary = new Timer(updatecoursestatus, app, TimeSpan.Zero, TimeSpan.FromDays(1));
-// Ensure default static files (e.g., wwwroot) are also CORS-enabled
 app.UseStaticFiles(new StaticFileOptions
 {
     OnPrepareResponse = ctx =>

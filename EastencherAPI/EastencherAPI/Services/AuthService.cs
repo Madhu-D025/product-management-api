@@ -226,7 +226,7 @@ namespace AuthApplication.Services
         {
             try
             {
-                string EncryptionKey = "Iteos";
+                string EncryptionKey = "Eastencher";
                 byte[] KeyArray;
                 byte[] ToEncryptArray = Convert.FromBase64String(Password);
 
